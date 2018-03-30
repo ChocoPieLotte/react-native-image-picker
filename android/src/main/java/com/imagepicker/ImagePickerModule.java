@@ -19,6 +19,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.util.Patterns;
 import android.webkit.MimeTypeMap;
 import android.content.pm.PackageManager;
@@ -199,7 +200,11 @@ public class ImagePickerModule extends ReactContextBaseJavaModule
   public void doOnCancel()
   {
     if (callback != null) {
-      responseHelper.invokeCancel(callback);
+      try {
+        responseHelper.invokeCancel(callback);
+      } catch (Exception e) {
+        Log.d("Error Cacncel", "Return null");
+      }
       callback = null;
     }
   }
