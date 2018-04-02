@@ -239,10 +239,16 @@ public class MediaUtils
     {
         ReadExifResult result;
         int currentRotation = 0;
+        ExifInterface exif;
 
         try
         {
-            ExifInterface exif = new ExifInterface(imageConfig.original.getAbsolutePath());
+            if (imageConfig.original != null) {
+                exif = new ExifInterface(imageConfig.original.getAbsolutePath());
+            } else {
+                result = new ReadExifResult(currentRotation, null);
+                return result;
+            }
 
             // extract lat, long, and timestamp and add to the response
             float[] latlng = new float[2];
